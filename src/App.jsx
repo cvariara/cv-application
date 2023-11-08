@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Person from "./components/Person";
+import School from "./components/School";
+import Work from "./components/Work";
+import CV from "./components/CV";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [personInfo, setPersonInfo] = useState({
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@gmail.com",
+    phoneNumber: "888-888-8888",
+    address: "New York, USA",
+  });
+  const [schoolInfo, setSchoolInfo] = useState({
+    school: "Harvard College",
+    major: "Computer Science",
+    location: "Cambridge, Massachusetts",
+    gradDate: "May 2024",
+  });
+  const [workInfo, setWorkInfo] = useState({
+    company: "Microsoft",
+    position: "Software Engineer",
+    responsibilities: "Handle making code.",
+    startDate: "Sep 2021",
+    endDate: "Jun 2023",
+  });
+
+  const handlePersonSubmit = (data) => {
+    setPersonInfo(data);
+  };
+  const handleSchoolSubmit = (data) => {
+    setSchoolInfo(data);
+  };
+  const handleWorkSubmit = (data) => {
+    setWorkInfo(data);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="forms-container">
+        <div className="forms">
+          <Person onPersonSubmit={handlePersonSubmit} />
+          <School onSchoolSubmit={handleSchoolSubmit} />
+          <Work onWorkSubmit={handleWorkSubmit} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="cv-container">
+        <CV
+          personInfo={personInfo}
+          schoolInfo={schoolInfo}
+          workInfo={workInfo}
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
